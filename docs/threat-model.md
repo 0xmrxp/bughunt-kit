@@ -24,3 +24,5 @@
 - Reports use safe reproduction steps instead of payloads.
 - OpenAPI inventory never fetches server URLs or sends API requests.
 - Documents over 2 MB are rejected to bound parser resource use.
+- Web3 tools do not connect to RPC endpoints, request private keys, sign transactions, broadcast transactions, or generate exploits.
+- Unknown calldata selectors are returned as raw words instead of inferred semantics.

@@ -1,6 +1,6 @@
 {
   "name": "bughunt-kit",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Authorized web security assessment workflows for DeepSeek Harness: scoped passive reconnaissance, JavaScript endpoint analysis, redacted evidence storage, severity-ranked reporting.",
   "type": "module",
   "main": "lib/index.js",
@@ -68,12 +68,14 @@
   "peerDependencies": {
     "@deepseek-ai/cordis": "~4.0.5",
     "@deepseek-ai/dsh-skill": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-tools": "0.2.1-rc.2"
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-util-values": "0.2.1-rc.2"
   },
   "devDependencies": {
     "@deepseek-ai/cordis": "~4.0.5",
     "@deepseek-ai/dsh-skill": "0.2.1-rc.2",
     "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-util-values": "0.2.1-rc.2",
     "@types/node": "^22.0.0",
     "typescript": "^5.5.0"
   }

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 - 2026-10-27
+
+- Added local EVM calldata decoding for common token and NFT selectors.
+- Added ERC-20 allowance and ERC-721 operator approval risk explanations.
+- Added a defensive smart-contract review checklist.
+- Added Web3 review skill, fixture, and tests.
+- Web3 tools never use RPC, sign, broadcast, or generate exploits.
+
 ## 0.2.0 - 2026-10-27
 
 - Added `bughunt.openapi-inventory` for bounded, user-supplied OpenAPI 3 inventory.
