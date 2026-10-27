@@ -1,0 +1,5 @@
+# bughunt-kit bundle layer. The plugin is intentionally additive: it registers
+# scoped assessment tools and a bundled skill provider without changing DSH core.
+- insert:
+    - id: bughunt-kit
+      name: bughunt-kit

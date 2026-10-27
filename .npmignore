@@ -1,0 +1,7 @@
+src
+test
+fixtures
+docs
+tsconfig.json
+.gitignore
+.npmignore

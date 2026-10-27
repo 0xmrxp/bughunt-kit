@@ -1,0 +1,3 @@
+bughunt-kit is a defensive, authorized-use-only security assessment plugin.
+
+It provides scoped assessment metadata, passive evidence triage, redaction, and report formatting. It intentionally does not implement credential attacks, exploitation, persistence, evasion, denial of service, or destructive actions.

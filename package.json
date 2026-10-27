@@ -1,0 +1,77 @@
+{
+  "name": "bughunt-kit",
+  "version": "0.1.0",
+  "description": "Authorized web security assessment workflows for DeepSeek Harness: scoped passive reconnaissance, JavaScript endpoint analysis, redacted evidence storage, severity-ranked reporting.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
+  "files": [
+    "lib",
+    "skills",
+    "cordis.patch.yml",
+    "README.md",
+    "SECURITY.md",
+    "LICENSE",
+    "DISCLOSURE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "compatibility": {
+      "dshReleases": {
+        "0.2.0-rc.2": "compatible",
+        "0.2.1-rc.3": "compatible"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/USERNAME/bughunt-kit.git"
+  },
+  "homepage": "https://github.com/USERNAME/bughunt-kit#readme",
+  "bugs": {
+    "url": "https://github.com/USERNAME/bughunt-kit/issues"
+  },
+  "license": "MIT",
+  "contentPolicy": {
+    "class": "defensive-security"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "security",
+    "bug-bounty",
+    "web-security",
+    "assessment",
+    "report"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.0.5",
+    "@deepseek-ai/dsh-skill": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.2"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "~4.0.5",
+    "@deepseek-ai/dsh-skill": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}
