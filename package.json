@@ -24,7 +24,9 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "test": "npm run build && node --test test/*.test.mjs",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "demo:serve": "node demo/serve.mjs 18080",
+    "demo:capture": "node demo/capture.mjs"
   },
   "dsh": {
     "bundle": {
@@ -41,9 +43,9 @@
     "type": "git",
     "url": "git+https://github.com/0xmrxp/bughunt-kit.git"
   },
-  "homepage": "https://github.com/USERNAME/bughunt-kit#readme",
+  "homepage": "https://github.com/0xmrxp/bughunt-kit#readme",
   "bugs": {
-    "url": "https://github.com/USERNAME/bughunt-kit/issues"
+    "url": "https://github.com/0xmrxp/bughunt-kit/issues"
   },
   "license": "MIT",
   "contentPolicy": {

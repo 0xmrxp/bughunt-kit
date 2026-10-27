@@ -13,6 +13,30 @@ Authorized web security assessment workflows for [DeepSeek Harness](https://gith
 
 `bughunt-kit` is an evidence-first DSH plugin for turning an authorized assessment into a scoped, reproducible, redacted report. The first release intentionally favors safe passive analysis over exploit automation.
 
+## Demo
+
+The repository includes a reproducible local fixture and a browser-recorded walkthrough:
+
+![bughunt-kit demo](docs/assets/bughunt-kit-demo.gif)
+
+The demo shows the complete safe path: an owned local fixture, passive scope registration, evidence collection, redaction, endpoint triage, and Markdown report generation. It does not probe a public target and contains no exploit payloads.
+
+Run it locally:
+
+```bash
+npm run demo:serve
+# open http://127.0.0.1:18080 in a browser
+# click "Run demo"
+```
+
+To regenerate screenshots and the GIF with Playwright:
+
+```bash
+PLAYWRIGHT_BROWSERS_PATH=/tmp/bughunt-playwright-browsers npm run demo:capture
+```
+
+See [`demo/README.md`](demo/README.md) for the fixture details.
+
 ## What v0.1 provides
 
 - `bughunt.scope`: declare authorization, target paths, mode, and request budget before work starts.

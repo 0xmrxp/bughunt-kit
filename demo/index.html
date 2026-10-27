@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bughunt-kit demo</title>
+  <style>
+    :root { color-scheme: dark; --bg:#07111f; --panel:#0d1c2d; --panel2:#10263a; --line:#1e3851; --text:#e6f0fa; --muted:#86a1b8; --cyan:#58d7ff; --green:#5ee1a1; --amber:#f2c66d; --red:#ff7f8b; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:radial-gradient(circle at 90% -20%,#163b55 0,transparent 38%),var(--bg); color:var(--text); font:14px/1.5 Inter,ui-sans-serif,system-ui,sans-serif; }
+    .app { max-width:1240px; margin:auto; padding:30px 28px 44px; }
+    .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; }
+    .brand { display:flex; gap:12px; align-items:center; }
+    .mark { width:38px; height:38px; border-radius:12px; display:grid; place-items:center; background:linear-gradient(135deg,#58d7ff,#5ee1a1); color:#06111d; font-weight:900; box-shadow:0 8px 30px #58d7ff30; }
+    h1,h2,h3,p { margin:0; } h1 { font-size:22px; letter-spacing:-.03em; } h2 { font-size:16px; } h3 { font-size:13px; }
+    .eyebrow { color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.14em; }
+    .pill { border:1px solid #29624f; color:var(--green); background:#102c2b; border-radius:999px; padding:7px 11px; font-size:12px; }
+    .hero { display:flex; justify-content:space-between; gap:28px; align-items:end; margin-bottom:28px; } .hero-copy { max-width:680px; } .hero h2 { font-size:35px; line-height:1.08; letter-spacing:-.05em; margin:8px 0 12px; } .hero p { color:var(--muted); font-size:15px; }
+    .grid { display:grid; grid-template-columns:1.3fr .7fr; gap:18px; } .card { background:linear-gradient(145deg,#0d1d2d,#0a1727); border:1px solid var(--line); border-radius:18px; box-shadow:0 18px 50px #00000024; overflow:hidden; } .card-head { display:flex; justify-content:space-between; align-items:center; padding:17px 18px; border-bottom:1px solid var(--line); } .card-body { padding:18px; }
+    .scope { background:#0c2130; border:1px solid #22506a; border-radius:12px; padding:14px; display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; } .target { font-family:ui-monospace,SFMono-Regular,monospace; color:var(--cyan); margin-top:4px; } .auth { color:var(--green); font-size:12px; }
+    .steps { display:grid; gap:10px; } .step { display:flex; gap:12px; align-items:center; padding:12px; border:1px solid var(--line); background:#0a1726; border-radius:12px; transition:.25s; } .step.active { border-color:#3282a0; background:#10293a; transform:translateX(3px); } .step.done { border-color:#236448; } .dot { width:26px; height:26px; border-radius:50%; display:grid; place-items:center; background:#183047; color:var(--muted); font-size:12px; } .done .dot { background:#1f624b; color:var(--green); } .active .dot { background:#1e6681; color:var(--cyan); }
+    .step-copy { flex:1; } .step-copy strong { display:block; font-size:13px; } .step-copy span { color:var(--muted); font-size:12px; } .status { color:var(--muted); font-size:11px; } .done .status { color:var(--green); } .active .status { color:var(--cyan); }
+    .metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px; } .metric { padding:14px; border:1px solid var(--line); border-radius:12px; background:#0b1928; } .metric b { display:block; font-size:24px; margin-top:5px; } .metric small { color:var(--muted); }
+    .finding { display:flex; gap:10px; padding:12px 0; border-bottom:1px solid #173149; } .finding:last-child { border:0; } .severity { min-width:56px; height:22px; display:grid; place-items:center; border-radius:6px; font-size:10px; font-weight:700; } .low { color:#7fe3b0; background:#123e34; } .info { color:#85c9ea; background:#12354a; } .finding strong { display:block; font-size:12px; } .finding p { color:var(--muted); font-size:11px; margin-top:3px; }
+    pre { white-space:pre-wrap; margin:0; color:#aed2e7; font:12px/1.6 ui-monospace,SFMono-Regular,monospace; } .terminal { background:#06101b; border:1px solid #163147; border-radius:12px; padding:14px; min-height:190px; } .prompt { color:var(--green); } .cmd { color:var(--cyan); }
+    .actions { display:flex; gap:10px; margin-top:16px; } button { cursor:pointer; border:0; border-radius:10px; padding:11px 14px; color:#06111d; background:var(--cyan); font-weight:700; } button.secondary { background:#183047; color:var(--text); border:1px solid #2b4c65; } button:disabled { opacity:.45; cursor:not-allowed; }
+    footer { color:#5f7c94; text-align:center; margin-top:24px; font-size:12px; } code { color:var(--cyan); }
+    @media(max-width:850px) { .grid { grid-template-columns:1fr; } .hero { display:block; } .pill { display:inline-block; margin-top:18px; } .hero h2 { font-size:29px; } }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top"><div class="brand"><div class="mark">BH</div><div><div class="eyebrow">DeepSeek Harness plugin</div><h1>bughunt-kit</h1></div></div><div class="pill">● AUTHORIZED / PASSIVE</div></header>
+    <section class="hero"><div class="hero-copy"><div class="eyebrow">Evidence-first assessment workflow</div><h2>From declared scope to a report you can defend.</h2><p>A safe, reproducible walkthrough: scope → passive evidence → redaction → triage → Markdown report.</p></div><div class="eyebrow">v0.1.0 · local fixture</div></section>
+    <section class="grid">
+      <article class="card"><div class="card-head"><h2>Assessment run</h2><span id="run-status" class="status">Ready to start</span></div><div class="card-body">
+        <div class="scope"><div><div class="eyebrow">Authorized target</div><div class="target">https://demo.bughunt.local</div></div><div class="auth">✓ owned fixture</div></div>
+        <div class="steps">
+          <div class="step" data-step="1"><div class="dot">1</div><div class="step-copy"><strong>Register scope</strong><span>owned · / · passive · 30 req/min</span></div><div class="status">waiting</div></div>
+          <div class="step" data-step="2"><div class="dot">2</div><div class="step-copy"><strong>Collect passive evidence</strong><span>headers · robots.txt · JavaScript</span></div><div class="status">waiting</div></div>
+          <div class="step" data-step="3"><div class="dot">3</div><div class="step-copy"><strong>Redact and triage</strong><span>endpoint hints · secret-shaped values</span></div><div class="status">waiting</div></div>
+          <div class="step" data-step="4"><div class="dot">4</div><div class="step-copy"><strong>Generate report</strong><span>severity · evidence · remediation</span></div><div class="status">waiting</div></div>
+        </div>
+        <div class="metrics"><div class="metric"><small>Evidence items</small><b id="evidence">0</b></div><div class="metric"><small>Endpoints found</small><b id="endpoints">0</b></div><div class="metric"><small>Secrets redacted</small><b id="redacted">0</b></div></div>
+        <div class="actions"><button id="run">Run demo</button><button id="reset" class="secondary">Reset</button></div>
+      </div></article>
+      <aside class="card"><div class="card-head"><h2>Finding preview</h2><span class="status">safe output</span></div><div class="card-body"><div class="finding"><div class="severity low">LOW</div><div><strong>Missing security header</strong><p>Evidence: supplied fixture response has no Content-Security-Policy.</p></div></div><div class="finding"><div class="severity info">INFO</div><div><strong>API route discovered</strong><p><code>/api/v1/profile</code> appears in the supplied bundle.</p></div></div><div class="finding"><div class="severity info">INFO</div><div><strong>Source-map hint</strong><p>Bundle references <code>/assets/app.js.map</code>.</p></div></div></div></aside>
+      <article class="card"><div class="card-head"><h2>Agent/tool trace</h2><span class="status">reproducible</span></div><div class="card-body"><div class="terminal"><pre id="trace"><span class="prompt">$</span> <span class="cmd">bughunt.scope</span>  waiting for authorization boundary...</pre></div></div></article>
+      <article class="card"><div class="card-head"><h2>Generated report</h2><span id="report-status" class="status">not generated</span></div><div class="card-body"><pre id="report"># Authorized Web Security Assessment
+
+Run the demo to generate a redacted report.</pre></div></article>
+    </section>
+    <footer>bughunt-kit · no implicit network access · authorized use only · built for DeepSeek Harness</footer>
+  </main>
+  <script>
+    const $ = (s) => document.querySelector(s); const steps = [...document.querySelectorAll('.step')];
+    const trace = $('#trace'); const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+    function setStep(n, state, text) { const el = steps[n-1]; el.className = `step ${state}`; el.querySelector('.status').textContent = text; if(state === 'done') el.querySelector('.dot').textContent = '✓'; }
+    async function run() { $('#run').disabled = true; $('#run-status').textContent = 'Running safely...';
+      setStep(1,'active','running'); trace.innerHTML='<span class="prompt">$</span> <span class="cmd">bughunt.scope</span>  validating owned fixture...'; await sleep(650); setStep(1,'done','complete'); $('#evidence').textContent='1';
+      setStep(2,'active','collecting'); trace.innerHTML+='<br><span class="prompt">$</span> <span class="cmd">passive evidence</span>  headers + robots + bundle'; await sleep(750); setStep(2,'done','complete'); $('#evidence').textContent='4';
+      setStep(3,'active','redacting'); trace.innerHTML+='<br><span class="prompt">$</span> <span class="cmd">bughunt.analyze-js</span>  redacting credential-shaped values'; await sleep(750); setStep(3,'done','complete'); $('#endpoints').textContent='3'; $('#redacted').textContent='1';
+      setStep(4,'active','rendering'); trace.innerHTML+='<br><span class="prompt">$</span> <span class="cmd">bughunt.report</span>  writing Markdown output'; await sleep(750); setStep(4,'done','complete'); $('#report-status').textContent='generated'; $('#run-status').textContent='Complete'; $('#report').textContent='# Authorized Web Security Assessment\n\nTarget: https://demo.bughunt.local\nMode: passive\n\n## Findings\n\n- LOW: Missing security header\n- INFO: API route discovered\n- INFO: Source-map hint\n\nAll evidence was redacted before reporting.'; $('#run').disabled = false; }
+    function reset() { steps.forEach((_,i)=>setStep(i+1,'','waiting')); steps.forEach((el,i)=>el.querySelector('.dot').textContent=i+1); $('#evidence').textContent='0'; $('#endpoints').textContent='0'; $('#redacted').textContent='0'; $('#report-status').textContent='not generated'; $('#run-status').textContent='Ready to start'; trace.innerHTML='<span class="prompt">$</span> <span class="cmd">bughunt.scope</span>  waiting for authorization boundary...'; $('#report').textContent='# Authorized Web Security Assessment\n\nRun the demo to generate a redacted report.'; }
+    $('#run').addEventListener('click', run); $('#reset').addEventListener('click', reset);
+  </script>
+</body>
+</html>
