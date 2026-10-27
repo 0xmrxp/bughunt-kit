@@ -8,3 +8,4 @@
 - Added credential-shaped value redaction.
 - Added Markdown report generation.
 - Added three bundled methodology skills.
+- Added the initial portfolio repository metadata and DSH compatibility declaration.

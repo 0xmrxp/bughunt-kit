@@ -1,5 +1,7 @@
 # bughunt-kit
 
+> Portfolio project by [@0xmrxp](https://github.com/0xmrxp), built for DeepSeek Harness plugin development.
+
 [![DSH Plugin](https://img.shields.io/badge/DSH-plugin-0f766e)](https://github.com/topics/dsh-plugin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
