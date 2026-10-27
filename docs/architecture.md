@@ -6,8 +6,9 @@
 
 - `src/tools/scope-tool.ts`: normalizes scope and rate limits. It never contacts the target.
 - `src/tools/analyze-js-tool.ts`: analyzes user-supplied JavaScript text. It does not fetch URLs or execute scripts.
+- `src/tools/openapi-tool.ts`: inventories a supplied OpenAPI 3 JSON contract without network access.
 - `src/tools/report-tool.ts`: renders evidence supplied by prior steps into Markdown.
-- `src/services/*`: pure helpers for validation, redaction, and report formatting.
+- `src/services/*`: pure helpers for validation, redaction, OpenAPI inventory, and report formatting.
 - `src/skills.ts`: file-based bundled skill provider for the three methodology skills.
 - `skills/*`: authorization, evidence triage, and report-writing methodology.
 

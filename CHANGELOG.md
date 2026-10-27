@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 - 2026-10-27
+
+- Added `bughunt.openapi-inventory` for bounded, user-supplied OpenAPI 3 inventory.
+- Added API inventory skill and sample OpenAPI fixture.
+- Added GitHub Actions CI for typecheck, tests, packaging, and skill frontmatter.
+- Added CI status badge to the README.
+
 ## 0.1.0 - 2026-10-27
 
 - Initial portfolio scaffold.

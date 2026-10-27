@@ -2,6 +2,7 @@
 
 > Portfolio project by [@0xmrxp](https://github.com/0xmrxp), built for DeepSeek Harness plugin development.
 
+[![CI](https://github.com/0xmrxp/bughunt-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/0xmrxp/bughunt-kit/actions/workflows/ci.yml)
 [![DSH Plugin](https://img.shields.io/badge/DSH-plugin-0f766e)](https://github.com/topics/dsh-plugin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -37,12 +38,20 @@ PLAYWRIGHT_BROWSERS_PATH=/tmp/bughunt-playwright-browsers npm run demo:capture
 
 See [`demo/README.md`](demo/README.md) for the fixture details.
 
-## What v0.1 provides
+## What v0.2 provides
+
+Everything in v0.1, plus:
+
+- `bughunt.openapi-inventory`: inventory a supplied OpenAPI 3 JSON document into operations, servers, auth schemes, parameters, response codes, and review leads.
+- `bughunt-api-inventory`: a methodology skill for safe API contract review.
+- OpenAPI analysis is bounded to 2 MB, accepts user-supplied JSON only, and never fetches or probes an API automatically.
+
+The original v0.1 tools remain available:
 
 - `bughunt.scope`: declare authorization, target paths, mode, and request budget before work starts.
 - `bughunt.analyze-js`: extract endpoint and source-map hints from JavaScript text already supplied to the tool; no implicit fetching.
 - `bughunt.report`: render collected evidence into a structured Markdown report.
-- Three bundled skills: authorization boundary, evidence triage, and vulnerability reporting.
+- Four bundled skills: authorization boundary, evidence triage, API inventory, and vulnerability reporting.
 - Secret-shaped values are redacted before analysis output is returned.
 
 ## Install from a checkout
@@ -83,8 +92,11 @@ The Cordis bundle is additive. It registers tools and a skill provider without m
 npm install
 npm test
 npm run typecheck
+npm run smoke
 npm pack --dry-run
 ```
+
+Every push and pull request runs the same checks in GitHub Actions: typecheck, tests, package smoke test, and SKILL.md frontmatter validation.
 
 The package declares `dsh.bundle.patch`, so a published package can be installed with:
 

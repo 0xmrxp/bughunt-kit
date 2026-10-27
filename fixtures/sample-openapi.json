@@ -1,0 +1,27 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Demo fixture API", "version": "0.1.0" },
+  "servers": [{ "url": "https://demo.bughunt.local/api" }],
+  "security": [{ "bearerAuth": [] }],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": { "type": "http", "scheme": "bearer" }
+    }
+  },
+  "paths": {
+    "/profile": {
+      "get": {
+        "operationId": "getProfile",
+        "summary": "Read the authorized demo profile",
+        "responses": { "200": { "description": "Profile returned" } }
+      }
+    },
+    "/search": {
+      "get": {
+        "operationId": "searchCatalog",
+        "parameters": [{ "name": "q", "in": "query", "required": false }],
+        "responses": { "200": { "description": "Search results returned" } }
+      }
+    }
+  }
+}

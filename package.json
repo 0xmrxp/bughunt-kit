@@ -1,6 +1,6 @@
 {
   "name": "bughunt-kit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Authorized web security assessment workflows for DeepSeek Harness: scoped passive reconnaissance, JavaScript endpoint analysis, redacted evidence storage, severity-ranked reporting.",
   "type": "module",
   "main": "lib/index.js",
@@ -24,6 +24,7 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "test": "npm run build && node --test test/*.test.mjs",
+    "smoke": "node scripts/smoke-skills.mjs",
     "prepublishOnly": "npm run build",
     "demo:serve": "node demo/serve.mjs 18080",
     "demo:capture": "node demo/capture.mjs"
