@@ -149,8 +149,9 @@ window.__ModuleLoader__.load({
         setState({ phase: 'loading', data: null })
         Promise.resolve()
           .then(() => {
-            if (remote.bughuntDashboard && remote.bughuntDashboard.read) {
-              return remote.bughuntDashboard.read({})
+            const dashboard = remote.bughuntDashboard
+            if (dashboard && typeof dashboard.read === 'function') {
+              return dashboard.read({})
             }
             const first = props.sessions && props.sessions.list ? props.sessions.list.getSnapshot() : []
             const ids = Array.isArray(first) ? first : (first && first.byId ? Object.keys(first.byId) : [])
@@ -257,7 +258,7 @@ window.__ModuleLoader__.load({
     }
 
     return {
-      inject: ['slots', 'layout', 'locale', 'remote', 'remote.bughuntDashboard', 'remote.commands', 'sessions'],
+      inject: ['slots', 'layout', 'locale', 'remote', 'remote.commands', 'sessions'],
       apply(ctx) {
         ctx.effect(() => ctx.locale.register(NS, { en: { panel: STR.panel } }), 'bughunt-kit: dictionaries')
         ctx.slots.inject('main', () => ctx.slots.register({
