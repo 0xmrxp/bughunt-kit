@@ -38,22 +38,28 @@ PLAYWRIGHT_BROWSERS_PATH=/tmp/bughunt-playwright-browsers npm run demo:capture
 
 See [`demo/README.md`](demo/README.md) for the fixture details.
 
-## What v0.3 provides
+## What v0.4 provides
 
-Everything in v0.1 and v0.2, plus a local-only Web3 review module:
+A built-in DSH Web panel, registered directly inside the Harness sidebar:
 
-- `bughunt.decode-calldata`: decode common EVM selectors and arguments from supplied calldata.
-- `bughunt.approval-risk`: explain ERC-20 allowance and ERC-721 operator approval exposure.
-- `bughunt.contract-review`: return a defensive smart-contract checklist covering access control, reentrancy, oracles, approvals, upgradeability, validation, errors, and evidence.
-- `bughunt-web3-review`: methodology skill with strict no-signing/no-broadcast/no-exploit guardrails.
-- Web3 tools use no RPC, never request private keys, and never sign or submit transactions.
+- Live assessment dashboard in DSH — no separate port or application.
+- Every tool run is recorded into an in-memory store; the panel reads it through the `/bughunt.dashboard` host command.
+- Responsive layout: 4-column stats collapse to 2 columns under 760px, tool/skill cards stack under 1080px.
+- Defensive UI only: run counts, tool inventory, recent runs, and the latest report preview. No automatic probing, wallet signing, RPC, or transaction broadcast.
+- Client bundle follows the official `window.__ModuleLoader__.load({ id, factory })` contract with `locale` registration and `remote.commands` + `sessions` injection.
 
-The original v0.1 and v0.2 tools remain available:
+Open the **BH** entry in the sidebar after restarting the Web profile. If the panel shows no activity, run `bughunt.scope` or `bughunt.report` in a session first — the store is process-local and starts empty on every boot.
 
-- `bughunt.scope`: declare authorization, target paths, mode, and request budget before work starts.
-- `bughunt.analyze-js`: extract endpoint and source-map hints from JavaScript text already supplied to the tool; no implicit fetching.
-- `bughunt.report`: render collected evidence into a structured Markdown report.
-- Four bundled skills: authorization boundary, evidence triage, API inventory, and vulnerability reporting.
+Everything from v0.1 through v0.3 remains available:
+
+- `bughunt.scope`: declare authorization, target paths, mode, and request budget.
+- `bughunt.analyze-js`: extract endpoint and source-map hints from supplied JavaScript.
+- `bughunt.openapi-inventory`: inventory a supplied OpenAPI 3 document without fetching.
+- `bughunt.decode-calldata`: decode common EVM selectors and arguments locally.
+- `bughunt.approval-risk`: explain ERC-20 and ERC-721 approval exposure.
+- `bughunt.contract-review`: return a defensive smart-contract checklist.
+- `bughunt.report`: render collected evidence into Markdown.
+- Five bundled skills: authorization, evidence triage, API inventory, Web3 review, and reporting.
 - Secret-shaped values are redacted before analysis output is returned.
 
 ## Install from a checkout
@@ -115,7 +121,8 @@ The initial scaffold targets DSH `0.2.1-rc.2` and Node.js 20+. Update the compat
 - v0.1: scoped passive evidence and report MVP
 - v0.2: OpenAPI inventory and API trust-boundary review
 - v0.3: local Web3 calldata, approval-risk explanation, and smart-contract checklist
-- v0.4: optional Web UI for assessment history and evidence counts
+- v0.4: built-in DSH Web panel with assessment history and evidence workflow
+- v0.5: persist dashboard state and add report export actions
 
 ## License
 

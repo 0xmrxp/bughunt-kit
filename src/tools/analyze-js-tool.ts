@@ -1,5 +1,6 @@
 import { defineTool } from '@deepseek-ai/dsh-tools'
 import { redactSensitive } from '../services/redaction.js'
+import { recordRun } from '../assessment-store.js'
 
 const ENDPOINT_PATTERN = /\/[A-Za-z0-9_./?=&%:-]{3,}/g
 const SOURCE_MAP_PATTERN = /\/[A-Za-z0-9_./-]+\.map\b/gi
@@ -34,6 +35,11 @@ export const analyzeJsTool = defineTool({
     const sourceMaps = Array.from(new Set(args.content.match(SOURCE_MAP_PATTERN) ?? []))
     const redaction = redactSensitive(args.content)
 
+    recordRun({
+      tool: 'bughunt.analyze-js',
+      at: new Date().toISOString(),
+      summary: `${args.file}: ${endpoints.size} endpoint(s), ${sourceMaps.length} source-map(s), ${redaction.matches} redacted`,
+    })
     return {
       file: args.file,
       endpoints: Array.from(endpoints).slice(0, 100),

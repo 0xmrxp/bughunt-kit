@@ -1,6 +1,7 @@
 import { defineTool } from '@deepseek-ai/dsh-tools'
 import type { AssessmentFinding } from '../types/assessment.js'
 import { renderMarkdownReport } from '../services/report.js'
+import { recordRun } from '../assessment-store.js'
 
 function isFinding(value: unknown): value is AssessmentFinding {
   if (typeof value !== 'object' || value === null) return false
@@ -36,12 +37,20 @@ export const reportTool = defineTool({
   async execute(args, exec) {
     if (exec.signal.aborted) throw exec.signal.reason
     const findings = Array.isArray(args.findings) ? args.findings.filter((finding) => isFinding(finding)) : []
-    return renderMarkdownReport({
+    const generatedAt = new Date().toISOString()
+    const markdown = renderMarkdownReport({
       target: args.target,
       mode: args.mode === 'active' ? 'active' : 'passive',
-      generatedAt: new Date().toISOString(),
+      generatedAt,
       executiveSummary: args.executiveSummary,
       findings,
     })
+    recordRun({
+      tool: 'bughunt.report',
+      at: generatedAt,
+      target: args.target,
+      summary: markdown.split('\n').slice(0, 12).join('\n'),
+    })
+    return markdown
   },
 })

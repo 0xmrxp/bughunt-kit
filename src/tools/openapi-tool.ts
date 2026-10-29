@@ -1,6 +1,7 @@
 import { defineTool } from '@deepseek-ai/dsh-tools'
 import { redactSensitive } from '../services/redaction.js'
 import { parseOpenApiDocument } from '../services/openapi.js'
+import { recordRun } from '../assessment-store.js'
 
 /**
  * `bughunt.openapi-inventory` inventories a user-supplied OpenAPI 3 document.
@@ -30,6 +31,12 @@ export const openApiTool = defineTool({
     }
     const inventory = parseOpenApiDocument(parsed)
     const redaction = redactSensitive(args.document)
+    const label = args.label ?? 'supplied OpenAPI document'
+    recordRun({
+      tool: 'bughunt.openapi-inventory',
+      at: new Date().toISOString(),
+      summary: `${label}: ${inventory.operations.length} operation(s), ${inventory.operations.reduce((total, operation) => total + operation.riskSignals.length, 0)} risk signal(s)`,
+    })
     return JSON.parse(JSON.stringify({
       label: args.label ?? 'supplied OpenAPI document',
       ...inventory,

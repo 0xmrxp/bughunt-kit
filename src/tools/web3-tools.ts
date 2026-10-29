@@ -1,5 +1,6 @@
 import { defineTool } from '@deepseek-ai/dsh-tools'
 import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import { recordRun } from '../assessment-store.js'
 import {
   contractReviewChecklist,
   decodeCalldata,
@@ -29,12 +30,18 @@ export const decodeCalldataTool = defineTool({
   },
   async execute(args, exec) {
     if (exec.signal.aborted) throw exec.signal.reason
-    return asJson(decodeCalldata({
+    const decoded = decodeCalldata({
       calldata: args.calldata,
       to: args.to ?? null,
       value: args.value ?? null,
       chainId: args.chainId ?? null,
-    }))
+    })
+    recordRun({
+      tool: 'bughunt.decode-calldata',
+      at: new Date().toISOString(),
+      summary: `${decoded.selector}: ${decoded.signature ?? 'unknown selector'}`,
+    })
+    return asJson(decoded)
   },
 })
 
@@ -56,11 +63,17 @@ export const approvalRiskTool = defineTool({
   },
   async execute(args, exec) {
     if (exec.signal.aborted) throw exec.signal.reason
-    return asJson(explainApprovalRisk({
+    const risk = explainApprovalRisk({
       spender: args.spender,
       amount: args.amount,
       functionName: args.functionName ?? null,
-    }))
+    })
+    recordRun({
+      tool: 'bughunt.approval-risk',
+      at: new Date().toISOString(),
+      summary: `${risk.riskLevel}: ${risk.isUnlimited ? 'unlimited allowance' : 'bounded allowance'}`,
+    })
+    return asJson(risk)
   },
 })
 
@@ -78,6 +91,12 @@ export const contractReviewTool = defineTool({
   },
   async execute(_args, exec) {
     if (exec.signal.aborted) throw exec.signal.reason
-    return asJson(contractReviewChecklist())
+    const checklist = contractReviewChecklist()
+    recordRun({
+      tool: 'bughunt.contract-review',
+      at: new Date().toISOString(),
+      summary: `${checklist.items.length} checklist item(s) returned`,
+    })
+    return asJson(checklist)
   },
 })

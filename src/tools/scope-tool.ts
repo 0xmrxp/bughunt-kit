@@ -1,6 +1,7 @@
 import { defineTool } from '@deepseek-ai/dsh-tools'
 import type { AssessmentScope } from '../types/assessment.js'
 import { validateScope } from '../services/scope.js'
+import { recordRun } from '../assessment-store.js'
 
 /**
  * `bughunt.scope` makes the authorization boundary explicit before anything else
@@ -46,6 +47,13 @@ export const scopeTool = defineTool({
       mode: args.mode === 'active' ? 'active' : 'passive',
       maxRequestsPerMinute: args.maxRequestsPerMinute ?? 30,
     } satisfies AssessmentScope)
+    recordRun({
+      tool: 'bughunt.scope',
+      at: new Date().toISOString(),
+      target: scope.target,
+      mode: scope.mode,
+      summary: `${scope.authorization} · ${scope.allowedPaths.length} path(s) · ${scope.maxRequestsPerMinute}/min`,
+    })
     return { ...scope }
   },
 })

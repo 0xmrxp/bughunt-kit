@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 - 2026-10-28
+
+- Added a built-in DSH Web panel through the official `sidebar.panellist` and `main` slots.
+- Added client bundle using the required `window.__ModuleLoader__.load({ id, factory })` registration.
+- Fixed a client registration failure that prevented DSH Web from activating `bughunt-kit`.
+- Panel now shows genuine data: every tool records its run into a process-local store served through the `/bughunt.dashboard` host command.
+- Responsive layout: stat grid and tool/skill cards adapt at 760px and 1080px breakpoints.
+- Added dashboard regression coverage for the client registration, panel surface, and data flow.
+- Panel is defensive-only: no automatic target probing, RPC, signing, broadcasting, or exploit output.
+
 ## 0.3.0 - 2026-10-27
 
 - Added local EVM calldata decoding for common token and NFT selectors.
