@@ -13,6 +13,9 @@ import { dashboardSnapshot, type AssessmentDashboard } from './assessment-store.
 /** Command name shared by the Host command registry and the client panel. */
 export const DASHBOARD_COMMAND = 'bughunt.dashboard'
 
+/** Remote namespace the Web panel calls directly — no session required. */
+export const DASHBOARD_REMOTE = 'bughuntDashboard'
+
 export interface DashboardResult {
   dashboard: AssessmentDashboard
   commands: readonly string[]

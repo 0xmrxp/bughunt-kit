@@ -6,6 +6,7 @@ import { approvalRiskTool, contractReviewTool, decodeCalldataTool } from './tool
 import { reportTool } from './tools/report-tool.js'
 import { scopeTool } from './tools/scope-tool.js'
 import { dashboardResult, DASHBOARD_COMMAND } from './assessment-remote.js'
+import { BughuntDashboardService } from './assessment-service.js'
 import { createBughuntSkillsProvider } from './skills.js'
 
 /** Cordis plugin name; it matches the bundle patch row. */
@@ -23,6 +24,12 @@ export function apply(ctx: Context): void {
   ctx.tools.register(contractReviewTool)
   ctx.tools.register(reportTool)
   ctx.skills.registerProvider(() => createBughuntSkillsProvider())
+  try {
+    ctx.plugin(BughuntDashboardService)
+    ctx.logger.info('bughunt-kit: registered dashboard remote service')
+  } catch (error) {
+    ctx.logger.warn(`bughunt-kit: dashboard remote unavailable: ${String(error)}`)
+  }
   try {
     const commands = (ctx as unknown as { commands?: { register: (entry: unknown) => unknown } }).commands
     if (commands) {

@@ -144,32 +144,36 @@ window.__ModuleLoader__.load({
     function BughuntPanel(props) {
       const vp = useViewport()
       const remote = props.remote
-      const sessions = props.sessions
       const [state, setState] = React.useState({ phase: 'loading', data: null })
       const load = React.useCallback(() => {
         setState({ phase: 'loading', data: null })
         Promise.resolve()
           .then(() => {
-            const first = sessions && sessions.list ? sessions.list.getSnapshot() : []
+            if (remote.bughuntDashboard && remote.bughuntDashboard.read) {
+              return remote.bughuntDashboard.read({})
+            }
+            const first = props.sessions && props.sessions.list ? props.sessions.list.getSnapshot() : []
             const ids = Array.isArray(first) ? first : (first && first.byId ? Object.keys(first.byId) : [])
             if (!ids.length) return null
             return remote.commands.execute(ids[0], '/bughunt.dashboard', [])
           })
           .then((result) => {
-            if (!result || !result.ok || result.value === void 0) {
-              setState({ phase: 'empty', data: null })
+            if (!result || result.ok === false) {
+              setState({ phase: 'error', data: null })
               return
             }
             try {
-              const text = typeof result.value === 'string' ? result.value : result.value.text
-              const parsed = JSON.parse(text)
-              setState({ phase: 'ready', data: parsed.dashboard || null })
+              const value = result.value === void 0 ? result : result.value
+              const dashboard = value && value.dashboard
+                ? value.dashboard
+                : JSON.parse(typeof value === 'string' ? value : value.text).dashboard
+              setState({ phase: 'ready', data: dashboard || null })
             } catch (e) {
               setState({ phase: 'error', data: null })
             }
           })
           .catch(() => setState({ phase: 'error', data: null }))
-      }, [remote, sessions])
+      }, [remote, props.sessions])
       React.useEffect(() => { load() }, [load])
 
       const dash = state.data
@@ -253,7 +257,7 @@ window.__ModuleLoader__.load({
     }
 
     return {
-      inject: ['slots', 'layout', 'locale', 'remote', 'remote.commands', 'sessions'],
+      inject: ['slots', 'layout', 'locale', 'remote', 'remote.bughuntDashboard', 'remote.commands', 'sessions'],
       apply(ctx) {
         ctx.effect(() => ctx.locale.register(NS, { en: { panel: STR.panel } }), 'bughunt-kit: dictionaries')
         ctx.slots.inject('main', () => ctx.slots.register({

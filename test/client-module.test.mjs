@@ -8,7 +8,7 @@ test('client module registers the exact package id', () => {
   assert.match(client, /window\.__ModuleLoader__\.load\(/)
   assert.match(client, /id:\s*['"]bughunt-kit['"]/)
   assert.match(client, /factory\(require\)/)
-  assert.match(client, /inject:\s*\['slots', 'layout', 'locale', 'remote', 'remote\.commands', 'sessions'\]/)
+  assert.match(client, /inject:\s*\['slots', 'layout', 'locale', 'remote', 'remote\.bughuntDashboard', 'remote\.commands', 'sessions'\]/)
 })
 
 test('client module contributes a main panel and sidebar entry', () => {
@@ -27,6 +27,7 @@ test('client panel is responsive and renders content', () => {
 })
 
 test('client panel reads live dashboard data', () => {
+  assert.match(client, /remote\.bughuntDashboard\.read/)
   assert.match(client, /remote\.commands\.execute/)
   assert.match(client, /\/bughunt\.dashboard/)
   assert.match(client, /dash\.recent\.map/)
