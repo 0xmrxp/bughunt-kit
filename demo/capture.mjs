@@ -12,7 +12,7 @@ const rootDir = join(dirname(fileURLToPath(import.meta.url)), '..')
 mkdirSync(join(rootDir, 'docs/assets'), { recursive: true })
 
 const browser = await chromium.launch({ headless: true })
-const page = await browser.newPage({ viewport: { width: 1440, height: 980 } })
+const page = await browser.newPage({ viewport: { width: 1360, height: 1500 } })
 await page.goto('http://127.0.0.1:18080', { waitUntil: 'networkidle' })
 await page.screenshot({ path: join(rootDir, 'docs/assets/demo-ready.png'), fullPage: true })
 

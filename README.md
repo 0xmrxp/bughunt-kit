@@ -22,21 +22,13 @@ The repository includes a reproducible local fixture and a browser-recorded walk
 
 The demo shows the complete safe path: an owned local fixture, passive scope registration, evidence collection, redaction, endpoint triage, and Markdown report generation. It does not probe a public target and contains no exploit payloads.
 
-Run it locally:
+Try it locally:
 
 ```bash
 npm run demo:serve
 # open http://127.0.0.1:18080 in a browser
 # click "Run demo"
 ```
-
-To regenerate screenshots and the GIF with Playwright:
-
-```bash
-PLAYWRIGHT_BROWSERS_PATH=/tmp/bughunt-playwright-browsers npm run demo:capture
-```
-
-See [`demo/README.md`](demo/README.md) for the fixture details.
 
 ## What v0.4 provides
 
@@ -115,14 +107,6 @@ dsh plugin --profile web add bughunt-kit
 ## Compatibility
 
 The initial scaffold targets DSH `0.2.1-rc.2` and Node.js 20+. Update the compatibility matrix and run the smoke test before each release.
-
-## Roadmap
-
-- v0.1: scoped passive evidence and report MVP
-- v0.2: OpenAPI inventory and API trust-boundary review
-- v0.3: local Web3 calldata, approval-risk explanation, and smart-contract checklist
-- v0.4: built-in DSH Web panel with assessment history and evidence workflow
-- v0.5: persist dashboard state and add report export actions
 
 ## License
 
