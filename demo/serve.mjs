@@ -8,7 +8,7 @@ const port = Number(process.argv[2] ?? 18080)
 const server = createServer(async (req, res) => {
   if (req.url === '/demo/app.js') {
     res.writeHead(200, { 'content-type': 'application/javascript' })
-    res.end("fetch('/api/v1/profile');\nfetch('/api/v1/search?q=test');\n//# sourceMappingURL=/assets/app.js.map\nconst example = 'PUBLIC_ID not-secret';\n")
+    res.end("fetch('/api/v1/profile');\nfetch('/api/v1/search?q=test');\nfetch('/api/v1/settings');\n//# sourceMappingURL=/assets/app.js.map\nconst legacyToken = 'api_key=DEMO-ONLY-NOT-A-REAL-SECRET';\n")
     return
   }
   if (req.url === '/robots.txt') {
